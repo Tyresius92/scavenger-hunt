@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Navigation from "./components/Navigation";
+import Timer from "./components/Timer";
+import "./App.css";
 
-function App() {
+// import react router.
+// set up a dummy route with a text input
+// if that input gets the correct thing, set showButtons to true
+
+const App = () => {
+  const [showButtons, setShowButtons] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navigation />
+      <Timer showButtons={showButtons} />
     </div>
   );
-}
+};
 
 export default App;
