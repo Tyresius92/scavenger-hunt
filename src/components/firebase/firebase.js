@@ -29,14 +29,14 @@ class Firebase {
       questionsAnswer: Object of IDs pointing to booleans
     }
   */
-  team = uid => this.db.ref(`users/${uid}`);
+  team = teamId => this.db.ref(`teams/${teamId}`);
 
 // getTeamScore = questionsAnswered =>
 //   questionsAnswered.reduce((acc, question) => {
 //     return acc += question.score
 //   }, 0)
 
-  teams = () => this.db.ref('users');
+  teams = () => this.db.ref('teams');
 
 // iterator to track new team ID
   numTeams = () => this.db.ref('numTeams')
