@@ -16,7 +16,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "checkPrettier": "prettier --check \"src/**/*.js\"",
+    "lint": "node_modules/.bin/eslint --ext js,jsx ./src",
+    "sniff": "npm run checkPrettier && npm run lint"
   },
   "prettier": {
     "printWidth": 80,
@@ -33,9 +36,6 @@
     "htmlWhitespaceSensitivity": "css",
     "quoteProps": "as-needed"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -47,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.16.0"
   }
 }

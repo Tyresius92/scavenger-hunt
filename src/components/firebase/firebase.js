@@ -1,5 +1,5 @@
-import app from 'firebase/app';
-import 'firebase/database';
+import app from "firebase/app";
+import "firebase/database";
 
 const config = {
   apiKey: "AIzaSyDP2cSfnn-Af3T-GkSo-ipCsQkOtcmIC_E",
@@ -22,27 +22,26 @@ class Firebase {
   // *** Team API ***
 
   /*
-    team: {
-      id: int,
-      name: string,
-      password: string,
-      questionsAnswer: Object of IDs pointing to booleans
-    }
-  */
+   * team: {
+   *   id: int,
+   *   name: string,
+   *   password: string,
+   *   questionsAnswer: Object of IDs pointing to booleans
+   * }
+   */
   team = teamId => this.db.ref(`teams/${teamId}`);
 
-// getTeamScore = questionsAnswered =>
-//   questionsAnswered.reduce((acc, question) => {
-//     return acc += question.score
-//   }, 0)
+  /*
+   * getTeamScore = questionsAnswered =>
+   *   questionsAnswered.reduce((acc, question) => {
+   *     return acc += question.score
+   *   }, 0)
+   */
 
-  teams = () => this.db.ref('teams');
+  teams = () => this.db.ref("teams");
 
-// iterator to track new team ID
-  numTeams = () => this.db.ref('numTeams')
-
-
-
+  // iterator to track new team ID
+  numTeams = () => this.db.ref("numTeams");
 }
 
 export default Firebase;

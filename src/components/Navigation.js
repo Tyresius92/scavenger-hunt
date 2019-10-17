@@ -37,12 +37,10 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired
 };
 
-const a11yProps = index => {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
-  };
-};
+const a11yProps = index => ({
+  id: `simple-tab-${index}`,
+  "aria-controls": `simple-tabpanel-${index}`
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
