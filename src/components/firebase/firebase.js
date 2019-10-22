@@ -41,7 +41,10 @@ class Firebase {
   teams = () => this.db.ref("teams");
 
   // iterator to track new team ID
-  numTeams = () => this.db.ref("numTeams");
+  numTeams = () => this.db.ref('numTeams')
+
+  // end time for timer
+  endTime = () => this.db.ref('endTime')
 }
 
 export default Firebase;
