@@ -47,6 +47,7 @@ const CreateTeam = props => {
               return snapshot.val();
             })
             .then(id => {
+              props.updateTeamData({teamName, id})
               props.firebase.numTeams().set(id + 1);
             })
             .catch(() => {
@@ -68,6 +69,7 @@ const CreateTeam = props => {
           onChange={e => setTeamName(e.target.value)}
         />
         <TextField
+          type="password"
           margin="dense"
           className={classes.textInput}
           variant="filled"

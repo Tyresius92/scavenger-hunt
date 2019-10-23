@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import Container from "@material-ui/core/Container";
 import CreateTeam from "./CreateTeam";
+import JoinTeam from "./JoinTeam";
 import ScavengerHunt from "./ScavengerHunt";
 import LeaderBoard from "./LeaderBoard";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Navigation = () => {
+const Navigation = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -68,7 +69,7 @@ const Navigation = () => {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Create Team" icon={<GroupAddIcon />} {...a11yProps(0)} />
+          <Tab label="Teams" icon={<GroupAddIcon />} {...a11yProps(0)} />
           <Tab
             label="The Hunt"
             icon={<LocationSearchingIcon />}
@@ -82,8 +83,16 @@ const Navigation = () => {
         </Tabs>
       </AppBar>
       <Container>
+        {props.teamName &&
+          <h1>Welcome, {props.teamName}!</h1>
+        }
         <TabPanel value={value} index={0}>
-          <CreateTeam />
+          <CreateTeam
+            updateTeamData={props.updateTeamData}
+          />
+          <JoinTeam
+            updateTeamData={props.updateTeamData}
+          />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ScavengerHunt />
