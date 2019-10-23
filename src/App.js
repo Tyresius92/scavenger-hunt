@@ -17,15 +17,15 @@ class App extends Component {
       teamName: "",
       id: null
     }
-  }
+  };
 
   updateTeamData = teamData => {
-    this.setState({teamData})
-  }
+    this.setState({ teamData });
+  };
 
   toggleHuntActive = isHuntActive => {
-    this.setState({isHuntActive})
-  }
+    this.setState({ isHuntActive });
+  };
 
   render() {
     return (
@@ -42,6 +42,6 @@ class App extends Component {
       </div>
     );
   }
-};
+}
 
 export default App;

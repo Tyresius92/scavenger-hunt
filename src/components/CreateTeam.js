@@ -47,7 +47,7 @@ const CreateTeam = props => {
               return snapshot.val();
             })
             .then(id => {
-              props.updateTeamData({teamName, id})
+              props.updateTeamData({ teamName, id });
               props.firebase.numTeams().set(id + 1);
             })
             .catch(() => {
@@ -90,7 +90,8 @@ CreateTeam.propTypes = {
     numTeams: PropTypes.func.isRequired,
     teams: PropTypes.func.isRequired,
     team: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  updateTeamData: PropTypes.func.isRequired
 };
 
 export default withFirebase(CreateTeam);

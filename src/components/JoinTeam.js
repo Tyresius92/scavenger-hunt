@@ -9,7 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import { withFirebase } from "./firebase";
 
@@ -32,26 +32,27 @@ const JoinTeam = props => {
   const [teamData, setTeamData] = useState([]);
 
   useEffect(() => {
-    props.firebase
-        .teams()
-        .on("value", snapshot => {
-          const teamNames =
-            snapshot.val()
-              .map(({teamName, password}, index) => ({
-                teamName, password, id: index
-              }))
-          setTeamData(teamNames)
-        })
-  }, [])
+    props.firebase.teams().on("value", snapshot => {
+      const teamNames = snapshot.val().map(({ teamName, password }, index) => ({
+        teamName,
+        password,
+        id: index
+      }));
+      setTeamData(teamNames);
+    });
+  }, []);
 
   const onSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     const teamToJoin = teamData.find((team, index) => index === teamName);
 
     if (teamToJoin.password === password) {
-      props.updateTeamData({teamName: teamToJoin.teamName, id: teamToJoin.id})
-      setTeamName("")
-      setPassword("")
+      props.updateTeamData({
+        teamName: teamToJoin.teamName,
+        id: teamToJoin.id
+      });
+      setTeamName("");
+      setPassword("");
     }
   };
   return (
@@ -70,8 +71,10 @@ const JoinTeam = props => {
                 id: "team-name-input"
               }}
             >
-              {teamData.map(({teamName, id}) => (
-                <MenuItem key={id} value={id}>{teamName}</MenuItem>
+              {teamData.map(({ teamName, id }) => (
+                <MenuItem key={id} value={id}>
+                  {teamName}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -98,7 +101,8 @@ JoinTeam.propTypes = {
     numTeams: PropTypes.func.isRequired,
     teams: PropTypes.func.isRequired,
     team: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  updateTeamData: PropTypes.func.isRequired
 };
 
 export default withFirebase(JoinTeam);

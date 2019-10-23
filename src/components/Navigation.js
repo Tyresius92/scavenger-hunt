@@ -83,16 +83,10 @@ const Navigation = props => {
         </Tabs>
       </AppBar>
       <Container>
-        {props.teamName &&
-          <h1>Welcome, {props.teamName}!</h1>
-        }
+        {props.teamName && <h1>Welcome, {props.teamName}!</h1>}
         <TabPanel value={value} index={0}>
-          <CreateTeam
-            updateTeamData={props.updateTeamData}
-          />
-          <JoinTeam
-            updateTeamData={props.updateTeamData}
-          />
+          <CreateTeam updateTeamData={props.updateTeamData} />
+          <JoinTeam updateTeamData={props.updateTeamData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ScavengerHunt />
@@ -103,6 +97,11 @@ const Navigation = props => {
       </Container>
     </div>
   );
+};
+
+Navigation.propTypes = {
+  teamName: PropTypes.string.isRequired,
+  updateTeamData: PropTypes.func.isRequired
 };
 
 export default Navigation;
