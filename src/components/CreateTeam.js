@@ -47,10 +47,17 @@ const CreateTeam = props => {
               return snapshot.val();
             })
             .then(id => {
+              // store the team im logged in as in local state
               props.updateTeamData({ teamName, id });
+
+              // update the number of teams in the database
               props.firebase.numTeams().set(id + 1);
+
+              // clear the form
+              setTeamName("");
+              setPassword("");
             })
-            .catch(() => {
+            .catch(err => {
               // surface a message to the user
             });
         }

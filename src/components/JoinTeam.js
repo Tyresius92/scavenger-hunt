@@ -24,34 +24,36 @@ const useStyles = makeStyles({
   }
 });
 
-const JoinTeam = props => {
+const JoinTeam = ({ firebase, updateTeamData }) => {
   const classes = useStyles();
 
-  const [teamName, setTeamName] = useState("");
+  const [selectedTeamId, setselectedTeamId] = useState(0);
   const [password, setPassword] = useState("");
   const [teamData, setTeamData] = useState([]);
 
   useEffect(() => {
-    props.firebase.teams().on("value", snapshot => {
-      const teamNames = snapshot.val().map(({ teamName, password }, index) => ({
+    firebase.teams().on("value", snapshot => {
+      const teamsList = snapshot.val().map(({ teamName, password }, index) => ({
         teamName,
         password,
         id: index
       }));
-      setTeamData(teamNames);
+
+      setTeamData(teamsList);
     });
-  }, []);
+  }, [firebase]);
 
   const onSubmit = e => {
     e.preventDefault();
-    const teamToJoin = teamData.find((team, index) => index === teamName);
+
+    const teamToJoin = teamData.find((team, index) => index === selectedTeamId);
 
     if (teamToJoin.password === password) {
-      props.updateTeamData({
+      updateTeamData({
         teamName: teamToJoin.teamName,
         id: teamToJoin.id
       });
-      setTeamName("");
+      setselectedTeamId(0);
       setPassword("");
     }
   };
@@ -64,8 +66,8 @@ const JoinTeam = props => {
             <InputLabel htmlFor="team-name-input">Team Name</InputLabel>
             <Select
               className={classes.input}
-              value={teamName}
-              onChange={e => setTeamName(e.target.value)}
+              value={selectedTeamId}
+              onChange={e => setselectedTeamId(e.target.value)}
               inputProps={{
                 name: "teamName",
                 id: "team-name-input"
@@ -88,7 +90,9 @@ const JoinTeam = props => {
               placeholder="Enter a password..."
               onChange={e => setPassword(e.target.value)}
             />
-            <Button type="submit">Submit</Button>
+            <Button disabled={password === ""} type="submit">
+              Submit
+            </Button>
           </FormControl>
         </form>
       </Card>

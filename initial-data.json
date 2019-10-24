@@ -1,0 +1,68 @@
+{
+  "endTime": 15,
+  "numTeams": 1,
+  "teams": [
+    {
+      "password": "asdf",
+      "score": 0,
+      "teamName": "Admin Team"
+    }
+  ],
+  "questions": [
+    {
+      "question": "The MFA’s oldest piece of art is estimated to have been made in 6400 BC. What animal is it shaped like?",
+      "answer": "hare",
+      "points": 15
+    },
+    {
+      "question": "Placed near John Singer Sargent’s famous work is a painting by Obama’s portraitist. What is the last name of the artist whose work inspired Obama’s portraitist for this painting?",
+      "answer": "dobson",
+      "points": 15
+    },
+    {
+      "question": "One room in the MFA contains a depiction of itself. What is the last name of the artist who produced that work?",
+      "answer": "prosperi",
+      "points": 15
+    },
+    {
+      "question": "What is the last name of the American artist who designed a statue of a flower seller from a massively popular novel of his time?",
+      "answer": "rogers",
+      "points": 15
+    },
+    {
+      "question": "This artist’s upside down chandelier was not originally going to stay in the MFA, but was kept due to its wide popularity. (Artist’s last name only)",
+      "answer": "chihuly",
+      "points": 15
+    },
+    {
+      "question": "The bowl which is a declaration of political defiance would have been used for what kind of alcohol?",
+      "answer": "rum",
+      "points": 15
+    },
+    {
+      "question": "This piece, which contains Mexican, Spanish-Islamic, and Chinoiserie elements, contains depictions of the first free black settlement in Mexico. What is the surname of the family who owned this estate?",
+      "answer": "rivandeneira",
+      "points": 15
+    },
+    {
+      "question": "What is the audio tour ID number for Monet’s Water Lilies?",
+      "answer": "853",
+      "points": 15
+    },
+    {
+      "question": "How many pieces of glassware are in the McElheny display?",
+      "answer": "48",
+      "points": 15
+    },
+    {
+      "question": "What is the third crossed out word in the MFA Contemporary Art neon sign?",
+      "answer": "eat",
+      "points": 15
+    },
+    {
+      "question": "This mirror in which you can’t see yourself was inspired by what Shakespeare play?",
+      "answer": "othello",
+      "points": 15
+    }
+  ]
+}

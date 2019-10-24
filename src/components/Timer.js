@@ -63,7 +63,7 @@ const Timer = ({ firebase, showButtons, isHuntActive, toggleHuntActive }) => {
     }
 
     return () => clearInterval(interval);
-  }, [time, endTime, isHuntActive, showButtons]);
+  }, [time, endTime, isHuntActive, showButtons, firebase, toggleHuntActive]);
 
   return (
     <div className={classes.timer}>
