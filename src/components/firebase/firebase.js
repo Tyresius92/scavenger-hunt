@@ -47,6 +47,9 @@ class Firebase {
 
   teams = () => this.db.ref("teams");
 
+  getAutoUpdatingTeamList = callback =>
+    this.teams().on("value", snapshot => callback(snapshot));
+
   getTeamsOnce = callback =>
     this.teams()
       .once("value")

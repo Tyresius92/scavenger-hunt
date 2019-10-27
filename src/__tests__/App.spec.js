@@ -13,13 +13,4 @@ describe("App", () => {
 
     wrapper.unmount();
   });
-
-  it("has a Timer component", () => {
-    const wrapper = shallow(<App />);
-    const expectedLength = 1;
-
-    expect(wrapper.find(Timer).length).toBe(expectedLength);
-
-    wrapper.unmount();
-  });
 });

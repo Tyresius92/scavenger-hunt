@@ -19,6 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "checkPrettier": "prettier --check \"src/**/*.js\"",
+    "cover": "npm run test -- --coverage",
     "lint": "node_modules/.bin/eslint --ext js,jsx ./src",
     "sniff": "npm run checkPrettier && npm run lint",
     "deploy": "react-scripts build && firebase deploy"
@@ -37,6 +38,15 @@
     "arrowParens": "avoid",
     "htmlWhitespaceSensitivity": "css",
     "quoteProps": "as-needed"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
   },
   "browserslist": {
     "production": [
@@ -57,6 +67,10 @@
     "eslint-plugin-react": "^7.16.0"
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!**/node_modules/**",

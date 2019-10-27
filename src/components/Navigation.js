@@ -71,6 +71,7 @@ const Navigation = props => {
           <Tab label="Leader Board" icon={<InsertChart />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
+
       <Container>
         <Timer
           showButtons={props.teamData.id === ADMIN_TEAM_ID}
@@ -80,7 +81,6 @@ const Navigation = props => {
       </Container>
 
       <Container>
-        {" "}
         <TabPanel value={value} index={0}>
           {props.teamData.teamName ? (
             <h1>Welcome, {props.teamData.teamName}!</h1>

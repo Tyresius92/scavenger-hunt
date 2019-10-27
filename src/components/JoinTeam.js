@@ -25,7 +25,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
   const [errMessage, setErrorMsg] = useState("");
 
   useEffect(() => {
-    firebase.teams().on("value", snapshot => {
+    firebase.getAutoUpdatingTeamList(snapshot => {
       const teamsList = snapshot.val().map(({ teamName, password }, index) => ({
         teamName,
         password,
