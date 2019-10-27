@@ -31,6 +31,13 @@ class Firebase {
    */
   team = teamId => this.db.ref(`teams/${teamId}`);
 
+  getTeamWithIdOnce = (teamId, callback) =>
+    this.team(teamId)
+      .once("value")
+      .then(snapshot => callback(snapshot));
+
+  setTeamInfoForId = (teamId, newValue) => this.team(teamId).set(newValue);
+
   /*
    * getTeamScore = questionsAnswered =>
    *   questionsAnswered.reduce((acc, question) => {
@@ -40,11 +47,33 @@ class Firebase {
 
   teams = () => this.db.ref("teams");
 
+  getTeamsOnce = callback =>
+    this.teams()
+      .once("value")
+      .then(snapshot => callback(snapshot.val()));
+
   // iterator to track new team ID
   numTeams = () => this.db.ref("numTeams");
 
+  getNumTeamsOnce = callback =>
+    this.numTeams()
+      .once("value")
+      .then(snapshot => {
+        const numTeams = snapshot.val();
+        return callback(numTeams);
+      });
+
+  setNumTeams = newValue => this.numTeams().set(newValue);
+
   // end time for timer
   endTime = () => this.db.ref("endTime");
+
+  getEndTimeOnce = callback =>
+    this.endTime()
+      .once("value")
+      .then(snapshot => callback(snapshot));
+
+  setEndTime = newValue => this.endTime().set(newValue);
 }
 
 export default Firebase;

@@ -8,21 +8,13 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  makeStyles
+  TextField
 } from "@material-ui/core";
 import { withFirebase } from "./firebase";
+import useStyles from "./useStyles";
+import ErrorMessage from "./ErrorMessage";
 
-const useStyles = makeStyles({
-  card: {
-    minWidth: 275,
-    minHeight: 200,
-    padding: 10
-  },
-  input: {
-    minWidth: 255
-  }
-});
+const INCORRECT_PASSWORD_MESSAGE = "Incorrect password. Please try again.";
 
 const JoinTeam = ({ firebase, updateTeamData }) => {
   const classes = useStyles();
@@ -30,6 +22,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
   const [selectedTeamId, setselectedTeamId] = useState(0);
   const [password, setPassword] = useState("");
   const [teamData, setTeamData] = useState([]);
+  const [errMessage, setErrorMsg] = useState("");
 
   useEffect(() => {
     firebase.teams().on("value", snapshot => {
@@ -55,19 +48,39 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
       });
       setselectedTeamId(0);
       setPassword("");
+    } else {
+      setErrorMsg(INCORRECT_PASSWORD_MESSAGE);
     }
   };
+
+  const onTeamSelectChange = e => {
+    setErrorMsg("");
+    setselectedTeamId(e.target.value);
+  };
+
+  const onValueChange = e => {
+    setErrorMsg("");
+    setPassword(e.target.value);
+  };
+
   return (
     <>
+      {!!errMessage.length && (
+        <ErrorMessage message={INCORRECT_PASSWORD_MESSAGE} />
+      )}
       <Card className={classes.card} raised>
         <CardHeader title="Join a team" />
         <form onSubmit={onSubmit}>
-          <FormControl variant="filled" margin="dense">
+          <FormControl
+            className={classes.formControl}
+            variant="filled"
+            margin="dense"
+          >
             <InputLabel htmlFor="team-name-input">Team Name</InputLabel>
             <Select
               className={classes.input}
               value={selectedTeamId}
-              onChange={e => setselectedTeamId(e.target.value)}
+              onChange={onTeamSelectChange}
               inputProps={{
                 name: "teamName",
                 id: "team-name-input"
@@ -80,7 +93,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
               ))}
             </Select>
           </FormControl>
-          <FormControl>
+          <FormControl className={classes.formControl}>
             <TextField
               type="password"
               margin="dense"
@@ -88,9 +101,19 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
               variant="filled"
               label="Password"
               placeholder="Enter a password..."
-              onChange={e => setPassword(e.target.value)}
-            />
-            <Button disabled={password === ""} type="submit">
+              value={password}
+              onChange={onValueChange}
+            />{" "}
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <Button
+              className={classes.input}
+              variant="contained"
+              color="primary"
+              size="large"
+              disabled={password === ""}
+              type="submit"
+            >
               Submit
             </Button>
           </FormControl>

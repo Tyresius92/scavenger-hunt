@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Navigation from "./components/Navigation";
-import Timer from "./components/Timer";
 import "./App.css";
 
 /*
@@ -31,13 +30,10 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation
-          updateTeamData={this.updateTeamData}
-          teamName={this.state.teamData.teamName}
-        />
-        <Timer
-          showButtons={this.state.teamData.id === 0}
           isHuntActive={this.state.isHuntActive}
           toggleHuntActive={this.toggleHuntActive}
+          updateTeamData={this.updateTeamData}
+          teamData={this.state.teamData}
         />
       </div>
     );

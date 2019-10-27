@@ -1,19 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import Container from "@material-ui/core/Container";
+import {
+  Container,
+  AppBar,
+  Tabs,
+  Tab,
+  Typography,
+  Box
+} from "@material-ui/core";
+import { GroupAdd, LocationSearching, InsertChart } from "@material-ui/icons";
 import CreateTeam from "./CreateTeam";
 import JoinTeam from "./JoinTeam";
 import ScavengerHunt from "./ScavengerHunt";
 import LeaderBoard from "./LeaderBoard";
-import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
-import InsertChartIcon from "@material-ui/icons/InsertChart";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import Timer from "./Timer";
+import useStyles from "./useStyles";
+
+const ADMIN_TEAM_ID = 0;
 
 const TabPanel = props => {
   const { children, value, index, ...other } = props;
@@ -43,16 +46,6 @@ const a11yProps = index => ({
   "aria-controls": `simple-tabpanel-${index}`
 });
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
-  },
-  appBar: {
-    alignItems: "center"
-  }
-}));
-
 const Navigation = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -69,24 +62,34 @@ const Navigation = props => {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Teams" icon={<GroupAddIcon />} {...a11yProps(0)} />
+          <Tab label="Teams" icon={<GroupAdd />} {...a11yProps(0)} />
           <Tab
             label="The Hunt"
-            icon={<LocationSearchingIcon />}
+            icon={<LocationSearching />}
             {...a11yProps(1)}
           />
-          <Tab
-            label="Leader Board"
-            icon={<InsertChartIcon />}
-            {...a11yProps(2)}
-          />
+          <Tab label="Leader Board" icon={<InsertChart />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <Container>
-        {props.teamName && <h1>Welcome, {props.teamName}!</h1>}
+        <Timer
+          showButtons={props.teamData.id === ADMIN_TEAM_ID}
+          isHuntActive={props.isHuntActive}
+          toggleHuntActive={props.toggleHuntActive}
+        />
+      </Container>
+
+      <Container>
+        {" "}
         <TabPanel value={value} index={0}>
-          <CreateTeam updateTeamData={props.updateTeamData} />
-          <JoinTeam updateTeamData={props.updateTeamData} />
+          {props.teamData.teamName ? (
+            <h1>Welcome, {props.teamData.teamName}!</h1>
+          ) : (
+            <>
+              <CreateTeam updateTeamData={props.updateTeamData} />
+              <JoinTeam updateTeamData={props.updateTeamData} />
+            </>
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ScavengerHunt />
@@ -100,8 +103,13 @@ const Navigation = props => {
 };
 
 Navigation.propTypes = {
-  teamName: PropTypes.string.isRequired,
-  updateTeamData: PropTypes.func.isRequired
+  teamData: PropTypes.shape({
+    teamName: PropTypes.string.isRequired,
+    id: PropTypes.number
+  }).isRequired,
+  updateTeamData: PropTypes.func.isRequired,
+  isHuntActive: PropTypes.bool.isRequired,
+  toggleHuntActive: PropTypes.func.isRequired
 };
 
 export default Navigation;

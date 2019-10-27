@@ -5,99 +5,113 @@ import {
   Card,
   CardHeader,
   TextField,
-  makeStyles
+  FormControl
 } from "@material-ui/core";
+import ErrorMessage from "./ErrorMessage";
 import { withFirebase } from "./firebase";
+import useStyles from "./useStyles";
 
-const useStyles = makeStyles({
-  card: {
-    minWidth: 275,
-    minHeight: 200,
-    padding: 10
-  },
-  textInput: {
-    minWidth: 255
-  }
-});
+const INTERNAL_SERVER_ERROR_MSG =
+  "Internal Server Error. Please use provided paper sheet";
+
+const TEAM_NAME_TAKEN_MSG = "Team name taken, please choose another";
 
 const CreateTeam = props => {
   const classes = useStyles();
 
   const [teamName, setTeamName] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrorMsg] = useState("");
 
-  const onSubmit = () => {
-    props.firebase
-      .teams()
-      .once("value")
-      .then(snapshot => {
-        const isValidTeamName = !snapshot
-          .val()
-          .some(team => team.teamName === teamName);
-        if (isValidTeamName) {
-          props.firebase
-            .numTeams()
-            .once("value")
-            .then(snapshot => {
-              props.firebase.team(snapshot.val()).set({
-                teamName,
-                password,
-                score: 0
-              });
-              return snapshot.val();
-            })
-            .then(id => {
-              // store the team im logged in as in local state
-              props.updateTeamData({ teamName, id });
+  const onSubmit = event => {
+    event.preventDefault();
 
-              // update the number of teams in the database
-              props.firebase.numTeams().set(id + 1);
+    props.firebase.getTeamsOnce(teams => {
+      const isValidTeamName = !teams.some(team => team.teamName === teamName);
 
-              // clear the form
-              setTeamName("");
-              setPassword("");
-            })
-            .catch(err => {
-              // surface a message to the user
+      if (isValidTeamName) {
+        props.firebase
+          .getNumTeamsOnce(numTeams => {
+            props.firebase.setTeamInfoForId(numTeams, {
+              teamName,
+              password,
+              score: 0
             });
-        }
-      });
+            return numTeams;
+          })
+          .then(id => {
+            // store the team im logged in as in local state
+            props.updateTeamData({ teamName, id });
+
+            // update the number of teams in the database
+            props.firebase.setNumTeams(id + 1);
+          })
+          .catch(() => setErrorMsg(INTERNAL_SERVER_ERROR_MSG));
+      } else {
+        setErrorMsg(TEAM_NAME_TAKEN_MSG);
+      }
+    });
   };
+
+  const onTeamNameChange = e => {
+    setErrorMsg("");
+    setTeamName(e.target.value);
+  };
+
+  const onPasswordChange = e => {
+    setErrorMsg("");
+    setPassword(e.target.value);
+  };
+
   return (
     <>
+      {!!errMessage.length && <ErrorMessage message={errMessage} />}
       <Card className={classes.card} raised>
         <CardHeader title="Create a team" />
-        <TextField
-          margin="dense"
-          className={classes.textInput}
-          variant="filled"
-          label="Team Name"
-          placeholder="Enter team name..."
-          onChange={e => setTeamName(e.target.value)}
-        />
-        <TextField
-          type="password"
-          margin="dense"
-          className={classes.textInput}
-          variant="filled"
-          label="Password"
-          placeholder="Enter a password..."
-          onChange={e => setPassword(e.target.value)}
-        />
-        {teamName.length > 0 && password.length > 0 && (
-          <Button onClick={onSubmit}>Submit</Button>
-        )}
+        <form onSubmit={onSubmit}>
+          <FormControl className={classes.formControl}>
+            <TextField
+              variant="filled"
+              margin="dense"
+              className={classes.input}
+              label="Team Name"
+              placeholder="Enter team name..."
+              value={teamName}
+              onChange={onTeamNameChange}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <TextField
+              variant="filled"
+              margin="dense"
+              type="password"
+              className={classes.input}
+              label="Password"
+              placeholder="Enter a password..."
+              value={password}
+              onChange={onPasswordChange}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <Button
+              className={classes.input}
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              disabled={!teamName.length || !password.length}
+            >
+              Submit
+            </Button>
+          </FormControl>
+        </form>
       </Card>
     </>
   );
 };
 
 CreateTeam.propTypes = {
-  firebase: PropTypes.shape({
-    numTeams: PropTypes.func.isRequired,
-    teams: PropTypes.func.isRequired,
-    team: PropTypes.func.isRequired
-  }).isRequired,
+  firebase: PropTypes.object.isRequired,
   updateTeamData: PropTypes.func.isRequired
 };
 
