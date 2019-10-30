@@ -2,7 +2,6 @@ import { shallow } from "enzyme";
 import React from "react";
 import App from "../App";
 import Navigation from "../components/Navigation";
-import Timer from "../components/Timer";
 
 describe("App", () => {
   it("has a Navigation component", () => {

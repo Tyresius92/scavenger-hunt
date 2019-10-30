@@ -124,11 +124,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
 };
 
 JoinTeam.propTypes = {
-  firebase: PropTypes.shape({
-    numTeams: PropTypes.func.isRequired,
-    teams: PropTypes.func.isRequired,
-    team: PropTypes.func.isRequired
-  }).isRequired,
+  firebase: PropTypes.object.isRequired,
   updateTeamData: PropTypes.func.isRequired
 };
 

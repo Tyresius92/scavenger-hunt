@@ -71,10 +71,8 @@ class Firebase {
   // end time for timer
   endTime = () => this.db.ref("endTime");
 
-  getEndTimeOnce = callback =>
-    this.endTime()
-      .once("value")
-      .then(snapshot => callback(snapshot));
+  getAutoUpdatingEndTime = callback =>
+    this.endTime().on("value", snapshot => callback(snapshot));
 
   setEndTime = newValue => this.endTime().set(newValue);
 }

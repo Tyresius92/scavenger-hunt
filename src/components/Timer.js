@@ -16,7 +16,8 @@ const formatClock = time => {
   return `${minutes}:${seconds.padStart(DIGITS_TO_SHOW, "0")}`;
 };
 
-const timeUpMessage = "Time's up! Please return to the rendezvous for scoring.";
+const TIME_UP_MESSAGE =
+  "Time's up! Please return to the rendezvous for scoring.";
 
 class Timer extends React.Component {
   state = {
@@ -53,23 +54,20 @@ class Timer extends React.Component {
     });
 
   componentDidMount = () => {
-    this.props.firebase
-      .endTime()
-      .once("value")
-      .then(snapshot => {
-        const endTime = snapshot.val();
-        const timeRemaining = moment(endTime).diff(moment().unix());
+    this.props.firebase.getAutoUpdatingEndTime(snapshot => {
+      const endTime = snapshot.val();
+      const timeRemaining = moment(endTime).diff(moment().unix());
 
-        if (timeRemaining > 0) {
-          this.props.toggleHuntActive(true);
-          this.timer = this.setUpTimerIncrementer(endTime);
-        }
+      if (timeRemaining > 0) {
+        this.props.toggleHuntActive(true);
+        this.timer = this.setUpTimerIncrementer(endTime);
+      }
 
-        this.setState({
-          endTime,
-          timeRemaining
-        });
+      this.setState({
+        endTime,
+        timeRemaining
       });
+    });
   };
 
   render() {
@@ -77,7 +75,7 @@ class Timer extends React.Component {
       <div className={this.props.classes.timer}>
         <h1 className={this.props.classes.clock}>
           {this.state.timeRemaining <= 0
-            ? timeUpMessage
+            ? TIME_UP_MESSAGE
             : formatClock(this.state.timeRemaining)}
         </h1>
         {this.props.showButtons && !this.props.isHuntActive && (
