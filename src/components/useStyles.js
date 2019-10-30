@@ -3,10 +3,16 @@ import { makeStyles } from "@material-ui/core";
 export const stylesObject = theme => ({
   card: {
     width: "100%",
-    minHeight: 200,
     padding: 10,
     marginBottom: "20px",
     textAlign: "center"
+  },
+  correctCard: {
+    width: "100%",
+    padding: 10,
+    marginBottom: "20px",
+    textAlign: "center",
+    border: "green 2px solid"
   },
   formControl: {
     width: "80%"

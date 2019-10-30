@@ -8,7 +8,8 @@ class App extends Component {
     isHuntActive: false,
     teamData: {
       teamName: "",
-      id: null
+      id: null,
+      correctAnswers: []
     }
   };
 
@@ -21,6 +22,8 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.teamData);
+
     return (
       <div className="App">
         <Navigation

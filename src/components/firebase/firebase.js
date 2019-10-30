@@ -36,7 +36,26 @@ class Firebase {
       .once("value")
       .then(snapshot => callback(snapshot));
 
+  getAutoUpdatingTeamData = (teamId, callback) =>
+    this.team(teamId).on("value", snapshot => {
+      const teamData = snapshot.val();
+      callback(teamData);
+    });
+
   setTeamInfoForId = (teamId, newValue) => this.team(teamId).set(newValue);
+
+  updateCorrectAnswersArray = (teamId, newCorrectQuestionId) =>
+    this.db
+      .ref(`teams/${teamId}/correctAnswers`)
+      .once("value")
+      .then(snapshot => {
+        const prevCorrectAnswers = snapshot.val() || [];
+        const newCorrectAnswers = [...prevCorrectAnswers, newCorrectQuestionId];
+
+        this.db.ref(`teams/${teamId}/correctAnswers`).set(newCorrectAnswers);
+
+        return newCorrectAnswers;
+      });
 
   /*
    * getTeamScore = questionsAnswered =>
@@ -48,7 +67,10 @@ class Firebase {
   teams = () => this.db.ref("teams");
 
   getAutoUpdatingTeamList = callback =>
-    this.teams().on("value", snapshot => callback(snapshot));
+    this.teams().on("value", snapshot => {
+      const teamsList = snapshot.val();
+      callback(teamsList);
+    });
 
   getTeamsOnce = callback =>
     this.teams()
@@ -75,6 +97,16 @@ class Firebase {
     this.endTime().on("value", snapshot => callback(snapshot));
 
   setEndTime = newValue => this.endTime().set(newValue);
+
+  questions = () => this.db.ref("questions");
+
+  getQuestionsOnce = callback =>
+    this.questions()
+      .once("value")
+      .then(snapshot => {
+        const questionsList = snapshot.val();
+        return callback(questionsList);
+      });
 }
 
 export default Firebase;

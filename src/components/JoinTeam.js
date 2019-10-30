@@ -25,12 +25,15 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
   const [errMessage, setErrorMsg] = useState("");
 
   useEffect(() => {
-    firebase.getAutoUpdatingTeamList(snapshot => {
-      const teamsList = snapshot.val().map(({ teamName, password }, index) => ({
-        teamName,
-        password,
-        id: index
-      }));
+    firebase.getAutoUpdatingTeamList(teamData => {
+      const teamsList = teamData.map(
+        ({ teamName, password, correctAnswers }, index) => ({
+          teamName,
+          password,
+          correctAnswers: correctAnswers || [],
+          id: index
+        })
+      );
 
       setTeamData(teamsList);
     });
@@ -44,6 +47,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
     if (teamToJoin.password === password) {
       updateTeamData({
         teamName: teamToJoin.teamName,
+        correctAnswers: teamToJoin.correctAnswers,
         id: teamToJoin.id
       });
       setselectedTeamId(0);
@@ -103,7 +107,7 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
               placeholder="Enter a password..."
               value={password}
               onChange={onValueChange}
-            />{" "}
+            />
           </FormControl>
           <FormControl className={classes.formControl}>
             <Button

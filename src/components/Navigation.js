@@ -92,7 +92,11 @@ const Navigation = props => {
           )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ScavengerHunt />
+          <ScavengerHunt
+            teamData={props.teamData}
+            isHuntActive={props.isHuntActive}
+            updateTeamData={props.updateTeamData}
+          />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <LeaderBoard />

@@ -35,13 +35,14 @@ const CreateTeam = props => {
             props.firebase.setTeamInfoForId(numTeams, {
               teamName,
               password,
-              score: 0
+              score: 0,
+              correctAnswers: []
             });
             return numTeams;
           })
           .then(id => {
             // store the team im logged in as in local state
-            props.updateTeamData({ teamName, id });
+            props.updateTeamData({ teamName, id, correctAnswers: [] });
 
             // update the number of teams in the database
             props.firebase.setNumTeams(id + 1);
