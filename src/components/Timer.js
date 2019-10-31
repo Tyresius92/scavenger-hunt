@@ -16,13 +16,17 @@ const formatClock = time => {
   return `${minutes}:${seconds.padStart(DIGITS_TO_SHOW, "0")}`;
 };
 
+const HUNT_UNSTARTED_FLAG = -1;
+
+const HUNT_NOT_STARTED = "The hunt has not begun";
+
 const TIME_UP_MESSAGE =
   "Time's up! Please return to the rendezvous for scoring.";
 
 class Timer extends React.Component {
   state = {
     timeRemaining: 0,
-    endTime: 0
+    endTime: HUNT_UNSTARTED_FLAG
   };
 
   startTimer = () => {
@@ -53,6 +57,18 @@ class Timer extends React.Component {
       }
     });
 
+  getTimerValue = () => {
+    if (this.state.endTime === HUNT_UNSTARTED_FLAG) {
+      return HUNT_NOT_STARTED;
+    }
+
+    if (this.state.timeRemaining <= 0) {
+      return TIME_UP_MESSAGE;
+    }
+
+    return formatClock(this.state.timeRemaining);
+  };
+
   componentDidMount = () => {
     this.props.firebase.getAutoUpdatingEndTime(snapshot => {
       const endTime = snapshot.val();
@@ -73,11 +89,7 @@ class Timer extends React.Component {
   render() {
     return (
       <div className={this.props.classes.timer}>
-        <h1 className={this.props.classes.clock}>
-          {this.state.timeRemaining <= 0
-            ? TIME_UP_MESSAGE
-            : formatClock(this.state.timeRemaining)}
-        </h1>
+        <h1 className={this.props.classes.clock}>{this.getTimerValue()}</h1>
         {this.props.showButtons && !this.props.isHuntActive && (
           <div className="row">
             <Button

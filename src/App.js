@@ -22,8 +22,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.teamData);
-
     return (
       <div className="App">
         <Navigation

@@ -12,7 +12,10 @@ export const stylesObject = theme => ({
     padding: 10,
     marginBottom: "20px",
     textAlign: "center",
-    border: "green 2px solid"
+    border: "green 3px solid"
+  },
+  pointValue: {
+    fontWeight: "bold"
   },
   formControl: {
     width: "80%"

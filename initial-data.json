@@ -1,5 +1,5 @@
 {
-  "endTime": 15,
+  "endTime": -1,
   "numTeams": 1,
   "teams": [
     {
@@ -48,7 +48,7 @@
     {
       "question": "What is the audio tour ID number for Monet’s Water Lilies?",
       "answer": "853",
-      "points": 15
+      "points": 1
     },
     {
       "question": "How many pieces of glassware are in the McElheny display?",

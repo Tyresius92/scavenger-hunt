@@ -18,14 +18,9 @@ class ScavengerHunt extends React.Component {
   };
 
   onCorrectAnswer = questionId => {
-    // update team data in db
-    // push id into team/$id$/correctAnswers
-
     this.props.firebase
       .updateCorrectAnswersArray(this.props.teamData.id, questionId)
       .then(newCorrectAnswers => {
-        console.log(newCorrectAnswers);
-
         this.props.updateTeamData({
           ...this.props.teamData,
           correctAnswers: newCorrectAnswers
@@ -34,30 +29,54 @@ class ScavengerHunt extends React.Component {
   };
 
   render() {
-    //console.log(this.state.questionsList);
-    console.log(this.props);
-
     return (
       <>
-        {/* TODO: Remove the ! from below*/}
-        {this.props.isHuntActive && this.props.teamData.id ? (
-          <>
-            {this.state.questionsList.map((question, index) => (
-              <QuestionCard
-                id={index}
-                key={`question_${index}`}
-                question={question}
-                isCorrect={this.props.teamData.correctAnswers.includes(index)}
-                onCorrectAnswer={this.onCorrectAnswer}
-              />
-            ))}
-          </>
-        ) : (
-          <Typography>Please log in</Typography>
-        )}
+        {(() => {
+          if (this.props.teamData.id === null) {
+            return <Typography>Please log in</Typography>;
+          }
+
+          if (this.props.teamData.id === 0) {
+            return (
+              <Typography>
+                The Admin Team is not allowed to participate
+              </Typography>
+            );
+          }
+
+          if (this.props.isHuntActive) {
+            return (
+              <>
+                {this.state.questionsList.map((question, index) => (
+                  <QuestionCard
+                    id={index}
+                    key={`question_${index}`}
+                    question={question}
+                    isCorrect={this.props.teamData.correctAnswers.includes(
+                      index
+                    )}
+                    onCorrectAnswer={this.onCorrectAnswer}
+                  />
+                ))}
+              </>
+            );
+          }
+
+          return <Typography>The hunt is not open right now</Typography>;
+        })()}
       </>
     );
   }
 }
+
+ScavengerHunt.propTypes = {
+  firebase: PropTypes.object.isRequired,
+  teamData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    correctAnswers: PropTypes.arrayOf(PropTypes.number)
+  }),
+  updateTeamData: PropTypes.func.isRequired,
+  isHuntActive: PropTypes.bool.isRequired
+};
 
 export default withFirebase(ScavengerHunt);
