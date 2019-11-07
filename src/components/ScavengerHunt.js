@@ -21,10 +21,7 @@ class ScavengerHunt extends React.Component {
     this.props.firebase
       .updateCorrectAnswersArray(this.props.teamData.id, questionId)
       .then(newCorrectAnswers => {
-        this.props.updateTeamData({
-          ...this.props.teamData,
-          correctAnswers: newCorrectAnswers
-        });
+        this.props.updateCorrectAnswers(newCorrectAnswers);
       });
   };
 
@@ -52,9 +49,7 @@ class ScavengerHunt extends React.Component {
                     id={index}
                     key={`question_${index}`}
                     question={question}
-                    isCorrect={this.props.teamData.correctAnswers.includes(
-                      index
-                    )}
+                    isCorrect={this.props.correctAnswers.includes(index)}
                     onCorrectAnswer={this.onCorrectAnswer}
                   />
                 ))}
@@ -72,11 +67,12 @@ class ScavengerHunt extends React.Component {
 ScavengerHunt.propTypes = {
   firebase: PropTypes.object.isRequired,
   teamData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    correctAnswers: PropTypes.arrayOf(PropTypes.number)
+    id: PropTypes.number
   }),
+  correctAnswers: PropTypes.arrayOf(PropTypes.number),
   updateTeamData: PropTypes.func.isRequired,
-  isHuntActive: PropTypes.bool.isRequired
+  isHuntActive: PropTypes.bool.isRequired,
+  updateCorrectAnswers: PropTypes.func.isRequired
 };
 
 export default withFirebase(ScavengerHunt);

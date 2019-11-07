@@ -70,6 +70,10 @@ class Timer extends React.Component {
   };
 
   componentDidMount = () => {
+    /*
+     * argument to getAutoUpdatingEndTime is a callback which is called when
+     * there is a change in the value in firebase
+     */
     this.props.firebase.getAutoUpdatingEndTime(snapshot => {
       const endTime = snapshot.val();
       const timeRemaining = moment(endTime).diff(moment().unix());

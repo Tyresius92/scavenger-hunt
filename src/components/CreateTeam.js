@@ -32,17 +32,31 @@ const CreateTeam = props => {
       if (isValidTeamName) {
         props.firebase
           .getNumTeamsOnce(numTeams => {
-            props.firebase.setTeamInfoForId(numTeams, {
+            const initialDataObj = {
               teamName,
               password,
               score: 0,
-              correctAnswers: []
-            });
+              correctAnswers: [] // still needed as shape is different in db
+            };
+
+            props.firebase.setTeamInfoForId(numTeams, initialDataObj);
+
             return numTeams;
           })
           .then(id => {
             // store the team im logged in as in local state
-            props.updateTeamData({ teamName, id, correctAnswers: [] });
+            props.updateTeamData({ teamName, id });
+
+            /*
+             * second argument to this function is a callback that is called
+             * when correctanswers changes in firebase
+             */
+            props.firebase.getAutoUpdatingCorrectAnswersArray(
+              id,
+              correctAnswers => {
+                props.updateCorrectAnswers(correctAnswers || []);
+              }
+            );
 
             // update the number of teams in the database
             props.firebase.setNumTeams(id + 1);
@@ -113,7 +127,8 @@ const CreateTeam = props => {
 
 CreateTeam.propTypes = {
   firebase: PropTypes.object.isRequired,
-  updateTeamData: PropTypes.func.isRequired
+  updateTeamData: PropTypes.func.isRequired,
+  updateCorrectAnswers: PropTypes.func.isRequired
 };
 
 export default withFirebase(CreateTeam);

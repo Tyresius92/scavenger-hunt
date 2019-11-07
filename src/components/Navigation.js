@@ -86,8 +86,14 @@ const Navigation = props => {
             <h1>Welcome, {props.teamData.teamName}!</h1>
           ) : (
             <>
-              <CreateTeam updateTeamData={props.updateTeamData} />
-              <JoinTeam updateTeamData={props.updateTeamData} />
+              <CreateTeam
+                updateTeamData={props.updateTeamData}
+                updateCorrectAnswers={props.updateCorrectAnswers}
+              />
+              <JoinTeam
+                updateTeamData={props.updateTeamData}
+                updateCorrectAnswers={props.updateCorrectAnswers}
+              />
             </>
           )}
         </TabPanel>
@@ -96,6 +102,8 @@ const Navigation = props => {
             teamData={props.teamData}
             isHuntActive={props.isHuntActive}
             updateTeamData={props.updateTeamData}
+            correctAnswers={props.correctAnswers}
+            updateCorrectAnswers={props.updateCorrectAnswers}
           />
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -111,9 +119,11 @@ Navigation.propTypes = {
     teamName: PropTypes.string.isRequired,
     id: PropTypes.number
   }).isRequired,
+  correctAnswers: PropTypes.arrayOf(PropTypes.number),
   updateTeamData: PropTypes.func.isRequired,
   isHuntActive: PropTypes.bool.isRequired,
-  toggleHuntActive: PropTypes.func.isRequired
+  toggleHuntActive: PropTypes.func.isRequired,
+  updateCorrectAnswers: PropTypes.func.isRequired
 };
 
 export default Navigation;

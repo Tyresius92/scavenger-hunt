@@ -44,6 +44,11 @@ class Firebase {
 
   setTeamInfoForId = (teamId, newValue) => this.team(teamId).set(newValue);
 
+  getAutoUpdatingCorrectAnswersArray = (teamId, callback) =>
+    this.db
+      .ref(`teams/${teamId}/correctAnswers`)
+      .on("value", snapshot => callback(snapshot.val()));
+
   updateCorrectAnswersArray = (teamId, newCorrectQuestionId) =>
     this.db
       .ref(`teams/${teamId}/correctAnswers`)

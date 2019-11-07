@@ -8,9 +8,9 @@ class App extends Component {
     isHuntActive: false,
     teamData: {
       teamName: "",
-      id: null,
-      correctAnswers: []
-    }
+      id: null
+    },
+    correctAnswers: []
   };
 
   updateTeamData = teamData => {
@@ -21,6 +21,10 @@ class App extends Component {
     this.setState({ isHuntActive });
   };
 
+  updateCorrectAnswers = correctAnswers => {
+    this.setState({ correctAnswers });
+  };
+
   render() {
     return (
       <div className="App">
@@ -29,6 +33,8 @@ class App extends Component {
           toggleHuntActive={this.toggleHuntActive}
           updateTeamData={this.updateTeamData}
           teamData={this.state.teamData}
+          updateCorrectAnswers={this.updateCorrectAnswers}
+          correctAnswers={this.state.correctAnswers}
         />
       </div>
     );

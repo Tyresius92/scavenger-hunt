@@ -16,7 +16,7 @@ import ErrorMessage from "./ErrorMessage";
 
 const INCORRECT_PASSWORD_MESSAGE = "Incorrect password. Please try again.";
 
-const JoinTeam = ({ firebase, updateTeamData }) => {
+const JoinTeam = ({ firebase, updateTeamData, updateCorrectAnswers }) => {
   const classes = useStyles();
 
   const [selectedTeamId, setselectedTeamId] = useState(0);
@@ -26,14 +26,11 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
 
   useEffect(() => {
     firebase.getAutoUpdatingTeamList(teamData => {
-      const teamsList = teamData.map(
-        ({ teamName, password, correctAnswers }, index) => ({
-          teamName,
-          password,
-          correctAnswers: correctAnswers || [],
-          id: index
-        })
-      );
+      const teamsList = teamData.map(({ teamName, password }, index) => ({
+        teamName,
+        password,
+        id: index
+      }));
 
       setTeamData(teamsList);
     });
@@ -47,9 +44,14 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
     if (teamToJoin.password === password) {
       updateTeamData({
         teamName: teamToJoin.teamName,
-        correctAnswers: teamToJoin.correctAnswers,
         id: teamToJoin.id
       });
+
+      firebase.getAutoUpdatingCorrectAnswersArray(
+        teamToJoin.id,
+        correctAnswers => updateCorrectAnswers(correctAnswers || [])
+      );
+
       setselectedTeamId(0);
       setPassword("");
     } else {
@@ -129,7 +131,8 @@ const JoinTeam = ({ firebase, updateTeamData }) => {
 
 JoinTeam.propTypes = {
   firebase: PropTypes.object.isRequired,
-  updateTeamData: PropTypes.func.isRequired
+  updateTeamData: PropTypes.func.isRequired,
+  updateCorrectAnswers: PropTypes.func.isRequired
 };
 
 export default withFirebase(JoinTeam);
