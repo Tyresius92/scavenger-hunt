@@ -53,6 +53,10 @@ class Firebase {
     const teamInfo = await this.getTeamWithIdOnce(teamId);
     const { points } = await this.getQuestionWithIdOnce(newCorrectQuestionId);
 
+    if (!teamInfo.correctAnswers) {
+      teamInfo.correctAnswers = [];
+    }
+
     this.setTeamInfoForId(teamId, {
       ...teamInfo,
       correctAnswers: [...teamInfo.correctAnswers, newCorrectQuestionId],

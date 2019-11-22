@@ -7,6 +7,7 @@ import JoinTeam from "./JoinTeam";
 import ScavengerHunt from "./ScavengerHunt";
 import LeaderBoard from "./LeaderBoard";
 import TabPanel from "./TabPanel";
+import MessageCard from "./MessageCard";
 import Timer from "./Timer";
 import useStyles from "./useStyles";
 
@@ -51,7 +52,7 @@ const Navigation = props => {
             toggleHuntActive={props.toggleHuntActive}
           />
           {props.teamData.teamName ? (
-            <h1>Welcome, {props.teamData.teamName}!</h1>
+            <MessageCard message={`Welcome, ${props.teamData.teamName}!`} />
           ) : (
             <>
               <CreateTeam

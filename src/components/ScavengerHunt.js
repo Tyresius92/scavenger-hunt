@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography } from "@material-ui/core";
 import { withFirebase } from "./firebase";
+import MessageCard from "./MessageCard";
 import QuestionCard from "./QuestionCard";
+import ImportantInfoCard from "./ImportantInfoCard";
+
+const LOGIN_MESSAGE = "You must be logged in to participate";
+const ADMIN_PERMISSION_MESSAGE = "The Admin Team is not allowed to participate";
+const HUNT_NOT_ACTIVE = "The hunt is not open right now";
 
 class ScavengerHunt extends React.Component {
   state = {
@@ -28,17 +33,14 @@ class ScavengerHunt extends React.Component {
   render() {
     return (
       <>
+        <ImportantInfoCard />
         {(() => {
           if (this.props.teamData.id === null) {
-            return <Typography>Please log in</Typography>;
+            return <MessageCard message={LOGIN_MESSAGE} />;
           }
 
           if (this.props.teamData.id === 0) {
-            return (
-              <Typography>
-                The Admin Team is not allowed to participate
-              </Typography>
-            );
+            return <MessageCard message={ADMIN_PERMISSION_MESSAGE} />;
           }
 
           if (this.props.isHuntActive) {
@@ -57,7 +59,7 @@ class ScavengerHunt extends React.Component {
             );
           }
 
-          return <Typography>The hunt is not open right now</Typography>;
+          return <MessageCard message={HUNT_NOT_ACTIVE} />;
         })()}
       </>
     );
