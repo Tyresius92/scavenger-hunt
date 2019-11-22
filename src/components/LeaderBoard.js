@@ -31,9 +31,8 @@ class LeaderBoard extends React.Component {
           <Card className={this.props.classes.card} raised>
             <List>
               {this.state.sortedTeamsList.map((currTeam, index, array) => (
-                <>
+                <React.Fragment key={`${currTeam.name}_${index}`}>
                   <ListItem
-                    key={`${currTeam.name}_${index}`}
                     className={
                       currTeam.teamName === this.props.loggedInTeam
                         ? this.props.classes.myLeaderBoardLineItem
@@ -55,7 +54,7 @@ class LeaderBoard extends React.Component {
                     </Typography>
                   </ListItem>
                   {index + 1 !== array.length && <Divider />}
-                </>
+                </React.Fragment>
               ))}
             </List>
           </Card>

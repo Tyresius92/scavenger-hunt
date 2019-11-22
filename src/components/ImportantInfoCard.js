@@ -7,7 +7,7 @@ const ImportantInfoCard = () => {
 
   return (
     <Card raised className={classes.card}>
-      <CardHeader title="Da Rules" />
+      <CardHeader title="Important Notes" />
       <List>
         <ListItem>Your progress is saved automatically.</ListItem>
         <ListItem>
@@ -19,8 +19,8 @@ const ImportantInfoCard = () => {
           password.
         </ListItem>
         <ListItem>
-          You are allowed to use museum resources, including maps, brochures,
-          and asking questions of the staff. You are NOT allowed to use Google.
+          You are allowed to use museum printed materials and ask questions of
+          the staff (but don't pester them). You are NOT allowed to use Google.
         </ListItem>
       </List>
     </Card>
