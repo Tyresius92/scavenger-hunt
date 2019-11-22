@@ -1,45 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  AppBar,
-  Tabs,
-  Tab,
-  Typography,
-  Box
-} from "@material-ui/core";
+import { Container, AppBar, Tabs, Tab } from "@material-ui/core";
 import { GroupAdd, LocationSearching, InsertChart } from "@material-ui/icons";
 import CreateTeam from "./CreateTeam";
 import JoinTeam from "./JoinTeam";
 import ScavengerHunt from "./ScavengerHunt";
 import LeaderBoard from "./LeaderBoard";
+import TabPanel from "./TabPanel";
 import Timer from "./Timer";
 import useStyles from "./useStyles";
 
 const ADMIN_TEAM_ID = 0;
-
-const TabPanel = props => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-};
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-};
 
 const a11yProps = index => ({
   id: `simple-tab-${index}`,
@@ -60,7 +31,7 @@ const Navigation = props => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="simple tabs example"
+          aria-label="main navigation tabs"
         >
           <Tab label="Teams" icon={<GroupAdd />} {...a11yProps(0)} />
           <Tab
@@ -73,15 +44,12 @@ const Navigation = props => {
       </AppBar>
 
       <Container>
-        <Timer
-          showButtons={props.teamData.id === ADMIN_TEAM_ID}
-          isHuntActive={props.isHuntActive}
-          toggleHuntActive={props.toggleHuntActive}
-        />
-      </Container>
-
-      <Container>
         <TabPanel value={value} index={0}>
+          <Timer
+            showButtons={props.teamData.id === ADMIN_TEAM_ID}
+            isHuntActive={props.isHuntActive}
+            toggleHuntActive={props.toggleHuntActive}
+          />
           {props.teamData.teamName ? (
             <h1>Welcome, {props.teamData.teamName}!</h1>
           ) : (
@@ -98,6 +66,11 @@ const Navigation = props => {
           )}
         </TabPanel>
         <TabPanel value={value} index={1}>
+          <Timer
+            showButtons={props.teamData.id === ADMIN_TEAM_ID}
+            isHuntActive={props.isHuntActive}
+            toggleHuntActive={props.toggleHuntActive}
+          />
           <ScavengerHunt
             teamData={props.teamData}
             isHuntActive={props.isHuntActive}
@@ -107,7 +80,12 @@ const Navigation = props => {
           />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <LeaderBoard />
+          <Timer
+            showButtons={props.teamData.id === ADMIN_TEAM_ID}
+            isHuntActive={props.isHuntActive}
+            toggleHuntActive={props.toggleHuntActive}
+          />
+          <LeaderBoard loggedInTeam={props.teamData.teamName} />
         </TabPanel>
       </Container>
     </div>

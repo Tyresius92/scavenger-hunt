@@ -31,10 +31,10 @@ class Firebase {
    */
   team = teamId => this.db.ref(`teams/${teamId}`);
 
-  getTeamWithIdOnce = (teamId, callback) =>
+  getTeamWithIdOnce = teamId =>
     this.team(teamId)
       .once("value")
-      .then(snapshot => callback(snapshot));
+      .then(snapshot => snapshot.val());
 
   getAutoUpdatingTeamData = (teamId, callback) =>
     this.team(teamId).on("value", snapshot => {
@@ -49,7 +49,20 @@ class Firebase {
       .ref(`teams/${teamId}/correctAnswers`)
       .on("value", snapshot => callback(snapshot.val()));
 
-  updateCorrectAnswersArray = (teamId, newCorrectQuestionId) =>
+  setTeamInfoForNewCorrectAnswer = async (teamId, newCorrectQuestionId) => {
+    const teamInfo = await this.getTeamWithIdOnce(teamId);
+    const { points } = await this.getQuestionWithIdOnce(newCorrectQuestionId);
+
+    this.setTeamInfoForId(teamId, {
+      ...teamInfo,
+      correctAnswers: [...teamInfo.correctAnswers, newCorrectQuestionId],
+      score: teamInfo.score + points
+    });
+
+    return [...teamInfo.correctAnswers, newCorrectQuestionId];
+  };
+
+  updateCorrectAnswersArray = (teamId, newCorrectQuestionId) => {
     this.db
       .ref(`teams/${teamId}/correctAnswers`)
       .once("value")
@@ -61,6 +74,7 @@ class Firebase {
 
         return newCorrectAnswers;
       });
+  };
 
   /*
    * getTeamScore = questionsAnswered =>
@@ -99,11 +113,21 @@ class Firebase {
   endTime = () => this.db.ref("endTime");
 
   getAutoUpdatingEndTime = callback =>
-    this.endTime().on("value", snapshot => callback(snapshot));
+    this.endTime().on("value", snapshot => {
+      const endTime = snapshot.val();
+      callback(endTime);
+    });
 
   setEndTime = newValue => this.endTime().set(newValue);
 
   questions = () => this.db.ref("questions");
+
+  question = questionId => this.db.ref(`questions/${questionId}`);
+
+  getQuestionWithIdOnce = questionId =>
+    this.question(questionId)
+      .once("value")
+      .then(snapshot => snapshot.val());
 
   getQuestionsOnce = callback =>
     this.questions()

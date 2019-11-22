@@ -30,16 +30,24 @@ export const stylesObject = theme => ({
   appBar: {
     alignItems: "center"
   },
-  timer: {
-    flexGrow: 1,
-    textAlign: "center"
-  },
-  clock: {
-    color: "black"
-  },
   errorMessage: {
     backgroundColor: theme.palette.error.dark,
     width: "100%"
+  },
+  myLeaderBoardLineItem: {
+    width: "100%",
+    fontWeight: "bold",
+    backgroundColor: "palegreen"
+  },
+  myLeaderBoardLineText: {
+    width: "100%",
+    fontWeight: "bold"
+  },
+  leaderLine: {
+    width: "100%"
+  },
+  score: {
+    float: "right"
   }
 });
 

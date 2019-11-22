@@ -16,7 +16,7 @@
       "points": 15
     },
     {
-      "question": "Placed near John Singer Sargent’s famous work is a painting by Obama’s portraitist. What is the last name of the artist whose work inspired Obama’s portraitist for this painting?",
+      "question": "Placed near John Singer Sargent’s potentially most famous work is a painting by Obama’s portraitist. What is the last name of the artist whose work inspired Obama’s portraitist for this painting?",
       "answer": "dobson",
       "points": 15
     },
@@ -63,6 +63,71 @@
     {
       "question": "This mirror in which you can’t see yourself was inspired by what Shakespeare play?",
       "answer": "othello",
+      "points": 15
+    },
+    {
+      "question": "Samuel McIntire was commissioned to produce a gilded statue of an eagle for a house in Salem, Massachusetts. What is the house number of that house?",
+      "answer": "70",
+      "points": 15
+    },
+    {
+      "question": "In this iconic harbor scene by John Singleton Copley, how many people are in the boat?",
+      "answer": "9",
+      "points": 15
+    },
+    {
+      "question": "What sacred art form does Lalla Essaydi make use of in her photograph in \"Women Take the Floor\"?",
+      "answer": "calligraphy",
+      "points": 15
+    },
+    {
+      "question": "What household tool is CeCe McDonald carrying in her 2016 portrait by Andrea Bowers?",
+      "answer": "hammer",
+      "points": 15
+    },
+    {
+      "question": "Which Old Testament figure is portrayed in Sargent's oil sketch for the Boston Public Libray murals?",
+      "answer": "moses",
+      "points": 15
+    },
+    {
+      "question": "What material is the blue lion in the Nubia exhibit made of?",
+      "answer": "faience",
+      "points": 15
+    },
+    {
+      "question": "The statue of this Lady originall stood in either the family tomb at Asyut or in a sanctuary in Southern Egypt, but was later transported to the tomb of Kerma's last ruler.",
+      "answer": "sennuwy",
+      "points": 15
+    },
+    {
+      "question": "What kind of slip glaze does the pitcher possibly depicting Toussaint L'Ouverture use?",
+      "answer": "albany",
+      "points": 15
+    },
+    {
+      "question": "The ruler in this statue, who may be Oba Esigie or even Prince Oranmiyan, ruled over what region?",
+      "answer": "benin",
+      "points": 15
+    },
+    {
+      "question": "What is the name of the mask with exaggerated eyes used in the coming of age traditions of the Democratic Republic of the Congo?",
+      "answer": "gitenga",
+      "points": 15
+    },
+    {
+      "question": "Which artist uses styrofoam cups to engage with the architecture of the MFA? (Last name only)",
+      "answer": "donovan",
+      "points": 15
+    },
+    {
+      "question": "Around what year was the MFA's most famous sculpture of Guanyin, the Bodhisattva of Compassion, made?",
+      "answer": "1200",
+      "points": 15
+    },
+    {
+      "question": "What is the first name of the knight depicted in this kneeling statue, which is set in front of an early 15th century stained glass window?",
+      "answer": "alonso",
       "points": 15
     }
   ]

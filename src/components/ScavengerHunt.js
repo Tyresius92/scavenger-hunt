@@ -19,10 +19,10 @@ class ScavengerHunt extends React.Component {
 
   onCorrectAnswer = questionId => {
     this.props.firebase
-      .updateCorrectAnswersArray(this.props.teamData.id, questionId)
-      .then(newCorrectAnswers => {
-        this.props.updateCorrectAnswers(newCorrectAnswers);
-      });
+      .setTeamInfoForNewCorrectAnswer(this.props.teamData.id, questionId)
+      .then(newCorrectAnswers =>
+        this.props.updateCorrectAnswers(newCorrectAnswers)
+      );
   };
 
   render() {

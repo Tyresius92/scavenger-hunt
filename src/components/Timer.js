@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as moment from "moment";
-import { Button, withStyles } from "@material-ui/core";
+import { Button, Card, CardHeader, withStyles } from "@material-ui/core";
 import { withFirebase } from "./firebase";
 import { stylesObject } from "./useStyles";
 
@@ -13,7 +13,7 @@ const formatClock = time => {
   const minutes = Math.floor(time / MINUTES_PER_HOUR);
   const seconds = (time % SECONDS_PER_MINUTE) + "";
 
-  return `${minutes}:${seconds.padStart(DIGITS_TO_SHOW, "0")}`;
+  return `Time remaining: ${minutes}:${seconds.padStart(DIGITS_TO_SHOW, "0")}`;
 };
 
 const HUNT_UNSTARTED_FLAG = -1;
@@ -74,8 +74,7 @@ class Timer extends React.Component {
      * argument to getAutoUpdatingEndTime is a callback which is called when
      * there is a change in the value in firebase
      */
-    this.props.firebase.getAutoUpdatingEndTime(snapshot => {
-      const endTime = snapshot.val();
+    this.props.firebase.getAutoUpdatingEndTime(endTime => {
       const timeRemaining = moment(endTime).diff(moment().unix());
 
       if (timeRemaining > 0) {
@@ -92,20 +91,23 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <div className={this.props.classes.timer}>
-        <h1 className={this.props.classes.clock}>{this.getTimerValue()}</h1>
-        {this.props.showButtons && !this.props.isHuntActive && (
-          <div className="row">
-            <Button
-              variant="contained"
-              color="primary"
-              className={"button button-primary button-primary-active"}
-              onClick={this.startTimer}
-            >
-              Start
-            </Button>
-          </div>
-        )}
+      <div>
+        <Card className={this.props.classes.card} raised>
+          <CardHeader title={this.getTimerValue()} />
+
+          {this.props.showButtons && !this.props.isHuntActive && (
+            <div className="row">
+              <Button
+                variant="contained"
+                color="primary"
+                className={"button button-primary button-primary-active"}
+                onClick={this.startTimer}
+              >
+                Start the game
+              </Button>
+            </div>
+          )}
+        </Card>
       </div>
     );
   }
