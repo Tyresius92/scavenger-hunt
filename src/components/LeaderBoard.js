@@ -11,6 +11,8 @@ import {
 import { withFirebase } from "./firebase";
 import { stylesObject } from "./useStyles";
 
+const MAX_POINTS = 100;
+
 class LeaderBoard extends React.Component {
   state = {
     sortedTeamsList: []
@@ -49,7 +51,7 @@ class LeaderBoard extends React.Component {
                     >
                       {currTeam.teamName}
                       <span className={this.props.classes.score}>
-                        {currTeam.score}
+                        {currTeam.score} / {MAX_POINTS}
                       </span>
                     </Typography>
                   </ListItem>

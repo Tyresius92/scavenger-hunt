@@ -16,6 +16,8 @@ const INTERNAL_SERVER_ERROR_MSG =
 
 const TEAM_NAME_TAKEN_MSG = "Team name taken, please choose another";
 
+const MAX_FORM_VALUE_LENGTH = 16;
+
 const CreateTeam = props => {
   const classes = useStyles();
 
@@ -93,6 +95,12 @@ const CreateTeam = props => {
               placeholder="Enter team name..."
               value={teamName}
               onChange={onTeamNameChange}
+              error={teamName.length > MAX_FORM_VALUE_LENGTH}
+              helperText={
+                teamName.length > MAX_FORM_VALUE_LENGTH
+                  ? "Team name is too long"
+                  : ""
+              }
             />
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -105,6 +113,12 @@ const CreateTeam = props => {
               placeholder="Enter a password..."
               value={password}
               onChange={onPasswordChange}
+              error={password.length > MAX_FORM_VALUE_LENGTH}
+              helperText={
+                password.length > MAX_FORM_VALUE_LENGTH
+                  ? "Password is too long"
+                  : ""
+              }
             />
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -114,7 +128,12 @@ const CreateTeam = props => {
               variant="contained"
               color="primary"
               size="large"
-              disabled={!teamName.length || !password.length}
+              disabled={
+                !teamName.length ||
+                teamName.length > MAX_FORM_VALUE_LENGTH ||
+                !password.length ||
+                password.length > MAX_FORM_VALUE_LENGTH
+              }
             >
               Submit
             </Button>
