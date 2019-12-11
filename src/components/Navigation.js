@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, AppBar, Tabs, Tab } from "@material-ui/core";
 import { GroupAdd, LocationSearching, InsertChart } from "@material-ui/icons";
+import SignUpInstructionsCard from "./SignUpInstructionsCard";
 import CreateTeam from "./CreateTeam";
 import JoinTeam from "./JoinTeam";
 import ScavengerHunt from "./ScavengerHunt";
@@ -55,6 +56,7 @@ const Navigation = props => {
             <MessageCard message={`Welcome, ${props.teamData.teamName}!`} />
           ) : (
             <>
+              <SignUpInstructionsCard />
               <CreateTeam
                 updateTeamData={props.updateTeamData}
                 updateCorrectAnswers={props.updateCorrectAnswers}
