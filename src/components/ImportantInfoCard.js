@@ -20,7 +20,7 @@ const ImportantInfoCard = () => {
         </ListItem>
         <ListItem>
           You are allowed to use museum printed materials and ask questions of
-          the staff (but don't pester them). You are NOT allowed to use Google.
+          the staff (but do not pester them). You are NOT allowed to use Google.
         </ListItem>
       </List>
     </Card>
