@@ -31,7 +31,7 @@ class Timer extends React.Component {
 
   startTimer = () => {
     const newEndTime = moment()
-      .add(1, "years")
+      .add(1, "hours")
       .unix();
     this.props.toggleHuntActive(true);
 
