@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Card, Typography, TextField } from "@material-ui/core";
+import { Card, Container, Typography, TextField } from "@material-ui/core";
 import useStyles from "./useStyles";
 
 const QuestionCard = ({ id, question, onCorrectAnswer, isCorrect }) => {
@@ -12,7 +12,7 @@ const QuestionCard = ({ id, question, onCorrectAnswer, isCorrect }) => {
     setInputAnswer(e.target.value);
 
     if (e.target.value.toLowerCase() === question.answer) {
-      onCorrectAnswer(id);
+      onCorrectAnswer(id, question.points);
     }
   };
 
@@ -21,35 +21,50 @@ const QuestionCard = ({ id, question, onCorrectAnswer, isCorrect }) => {
 
   return (
     <Card className={getQuestionCardClassName()} raised>
-      <Typography>
-        <span className={classes.pointValue}>
-          {question.points === 1
-            ? `${question.points} pt:`
-            : `${question.points} pts:`}
-        </span>{" "}
-        {question.question}
-      </Typography>
-      <TextField
-        type="text"
-        margin="dense"
-        className={classes.input}
-        variant="filled"
-        label="Answer"
-        placeholder="Your answer..."
-        disabled={isCorrect}
-        value={isCorrect ? question.answer : inputAnswer}
-        onChange={onValueChange}
-      />
+      <Container>
+        <Typography>
+          <span className={classes.pointValue}>
+            {question.points === 1
+              ? `${question.points} pt:`
+              : `${question.points} pts:`}
+          </span>{" "}
+          {question.question}
+        </Typography>
+        {question.image && (
+          <img
+            className={classes.questionImage}
+            src={question.image}
+            alt={question.alt}
+          />
+        )}
+        <TextField
+          type="text"
+          margin="dense"
+          className={classes.input}
+          variant="filled"
+          label="Answer"
+          placeholder="Your answer..."
+          disabled={isCorrect}
+          value={isCorrect ? question.answer : inputAnswer}
+          onChange={onValueChange}
+        />
+        {inputAnswer === "hint" && (
+          <Typography>Hint: {question.hint}</Typography>
+        )}
+      </Container>
     </Card>
   );
 };
 
 QuestionCard.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   question: PropTypes.shape({
     question: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
-    points: PropTypes.number.isRequired
+    points: PropTypes.number.isRequired,
+    image: PropTypes.string,
+    alt: PropTypes.string,
+    hint: PropTypes.string.isRequired
   }),
   onCorrectAnswer: PropTypes.func.isRequired,
   isCorrect: PropTypes.bool.isRequired

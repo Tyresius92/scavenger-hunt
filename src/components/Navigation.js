@@ -10,6 +10,7 @@ import LeaderBoard from "./LeaderBoard";
 import TabPanel from "./TabPanel";
 import MessageCard from "./MessageCard";
 import Timer from "./Timer";
+import DarkThemeToggle from "./DarkThemeToggle";
 import useStyles from "./useStyles";
 
 const ADMIN_TEAM_ID = 0;
@@ -45,12 +46,16 @@ const Navigation = props => {
         </Tabs>
       </AppBar>
 
-      <Container>
+      <Container className={classes.tabContainer}>
         <TabPanel value={value} index={0}>
           <Timer
             showButtons={props.teamData.id === ADMIN_TEAM_ID}
             isHuntActive={props.isHuntActive}
             toggleHuntActive={props.toggleHuntActive}
+          />
+          <DarkThemeToggle
+            isDarkTheme={props.isDarkTheme}
+            toggleDarkTheme={props.toggleDarkTheme}
           />
           {props.teamData.teamName ? (
             <MessageCard message={`Welcome, ${props.teamData.teamName}!`} />
@@ -60,10 +65,12 @@ const Navigation = props => {
               <CreateTeam
                 updateTeamData={props.updateTeamData}
                 updateCorrectAnswers={props.updateCorrectAnswers}
+                updateUnlockedBlocks={props.updateUnlockedBlocks}
               />
               <JoinTeam
                 updateTeamData={props.updateTeamData}
                 updateCorrectAnswers={props.updateCorrectAnswers}
+                updateUnlockedBlocks={props.updateUnlockedBlocks}
               />
             </>
           )}
@@ -79,7 +86,9 @@ const Navigation = props => {
             isHuntActive={props.isHuntActive}
             updateTeamData={props.updateTeamData}
             correctAnswers={props.correctAnswers}
+            unlockedBlocks={props.unlockedBlocks}
             updateCorrectAnswers={props.updateCorrectAnswers}
+            updateUnlockedBlocks={props.updateUnlockedBlocks}
           />
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -100,11 +109,15 @@ Navigation.propTypes = {
     teamName: PropTypes.string.isRequired,
     id: PropTypes.number
   }).isRequired,
-  correctAnswers: PropTypes.arrayOf(PropTypes.number),
+  correctAnswers: PropTypes.arrayOf(PropTypes.string),
   updateTeamData: PropTypes.func.isRequired,
   isHuntActive: PropTypes.bool.isRequired,
   toggleHuntActive: PropTypes.func.isRequired,
-  updateCorrectAnswers: PropTypes.func.isRequired
+  updateCorrectAnswers: PropTypes.func.isRequired,
+  isDarkTheme: PropTypes.bool.isRequired,
+  toggleDarkTheme: PropTypes.func.isRequired,
+  updateUnlockedBlocks: PropTypes.func.isRequired,
+  unlockedBlocks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 export default Navigation;

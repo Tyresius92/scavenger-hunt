@@ -14,6 +14,9 @@ const ImportantInfoCard = () => {
           Questions that have been answered correctly will be outlined in green.
         </ListItem>
         <ListItem>
+          Every third correct answer will unlock another question block.
+        </ListItem>
+        <ListItem>
           Refreshing the page will log you out. Please log in again to resume
           your game from where you left off. There is no way to recover your
           password.

@@ -1,0 +1,13 @@
+{
+  "endTime": -1,
+  "numTeams": 1,
+  "teams": [
+    {
+      "password": "asdf",
+      "score": 0,
+      "teamName": "Admin Team",
+      "correctAnswers": [],
+      "unlockedBlocks": ["americas", "unsorted"]
+    }
+  ]
+}

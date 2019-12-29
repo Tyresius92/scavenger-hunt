@@ -49,9 +49,12 @@ class Firebase {
       .ref(`teams/${teamId}/correctAnswers`)
       .on("value", snapshot => callback(snapshot.val()));
 
-  setTeamInfoForNewCorrectAnswer = async (teamId, newCorrectQuestionId) => {
+  setTeamInfoForNewCorrectAnswer = async (
+    teamId,
+    newCorrectQuestionId,
+    points
+  ) => {
     const teamInfo = await this.getTeamWithIdOnce(teamId);
-    const { points } = await this.getQuestionWithIdOnce(newCorrectQuestionId);
 
     if (!teamInfo.correctAnswers) {
       teamInfo.correctAnswers = [];
@@ -124,21 +127,22 @@ class Firebase {
 
   setEndTime = newValue => this.endTime().set(newValue);
 
-  questions = () => this.db.ref("questions");
+  getAutoUpdatingUnlockedBlocksArray = (teamId, callback) =>
+    this.db
+      .ref(`teams/${teamId}/unlockedBlocks`)
+      .on("value", snapshot => callback(snapshot.val()));
 
-  question = questionId => this.db.ref(`questions/${questionId}`);
-
-  getQuestionWithIdOnce = questionId =>
-    this.question(questionId)
-      .once("value")
-      .then(snapshot => snapshot.val());
-
-  getQuestionsOnce = callback =>
-    this.questions()
+  updateUnlockedBlocksArray = (teamId, newUnlockedBlockName) =>
+    this.db
+      .ref(`teams/${teamId}/unlockedBlocks`)
       .once("value")
       .then(snapshot => {
-        const questionsList = snapshot.val();
-        return callback(questionsList);
+        const prevUnlockedBlocks = snapshot.val() || [];
+        const newUnlockedBlocks = [...prevUnlockedBlocks, newUnlockedBlockName];
+
+        this.db.ref(`teams/${teamId}/unlockedBlocks`).set(newUnlockedBlocks);
+
+        return newUnlockedBlocks;
       });
 }
 

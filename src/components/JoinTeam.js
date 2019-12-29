@@ -16,7 +16,12 @@ import ErrorMessage from "./ErrorMessage";
 
 const INCORRECT_PASSWORD_MESSAGE = "Incorrect password. Please try again.";
 
-const JoinTeam = ({ firebase, updateTeamData, updateCorrectAnswers }) => {
+const JoinTeam = ({
+  firebase,
+  updateTeamData,
+  updateCorrectAnswers,
+  updateUnlockedBlocks
+}) => {
   const classes = useStyles();
 
   const [selectedTeamId, setselectedTeamId] = useState(0);
@@ -50,6 +55,11 @@ const JoinTeam = ({ firebase, updateTeamData, updateCorrectAnswers }) => {
       firebase.getAutoUpdatingCorrectAnswersArray(
         teamToJoin.id,
         correctAnswers => updateCorrectAnswers(correctAnswers || [])
+      );
+
+      firebase.getAutoUpdatingUnlockedBlocksArray(
+        teamToJoin.id,
+        unlockedBlocks => updateUnlockedBlocks(unlockedBlocks)
       );
 
       setselectedTeamId(0);
@@ -132,7 +142,8 @@ const JoinTeam = ({ firebase, updateTeamData, updateCorrectAnswers }) => {
 JoinTeam.propTypes = {
   firebase: PropTypes.object.isRequired,
   updateTeamData: PropTypes.func.isRequired,
-  updateCorrectAnswers: PropTypes.func.isRequired
+  updateCorrectAnswers: PropTypes.func.isRequired,
+  updateUnlockedBlocks: PropTypes.func.isRequired
 };
 
 export default withFirebase(JoinTeam);

@@ -3,16 +3,20 @@ import { makeStyles } from "@material-ui/core";
 export const stylesObject = theme => ({
   card: {
     width: "100%",
-    padding: 10,
+    paddingBottom: 10,
     marginBottom: "20px",
     textAlign: "center"
   },
   correctCard: {
     width: "100%",
-    padding: 10,
+    paddingBottom: 10,
     marginBottom: "20px",
     textAlign: "center",
-    border: "green 3px solid"
+    border: `${theme.palette.primary.main} 3px solid`
+  },
+  blockTitle: {
+    textAlign: "center",
+    color: theme.palette.text.primary
   },
   pointValue: {
     fontWeight: "bold"
@@ -23,8 +27,24 @@ export const stylesObject = theme => ({
   input: {
     width: "100%"
   },
+  dialogCard: {
+    width: "100%",
+    textAlign: "center"
+  },
+  dialogTitle: {
+    margin: "3px"
+  },
+  dialogButton: {
+    margin: "5px",
+    marginBottom: "8px",
+    width: "80%"
+  },
+  tabContainer: {
+    minHeight: "100%"
+  },
   root: {
     flexGrow: 1,
+    minHeight: "100vh",
     backgroundColor: theme.palette.background.paper
   },
   appBar: {
@@ -37,7 +57,7 @@ export const stylesObject = theme => ({
   myLeaderBoardLineItem: {
     width: "100%",
     fontWeight: "bold",
-    backgroundColor: "palegreen"
+    backgroundColor: theme.palette.primary.main
   },
   myLeaderBoardLineText: {
     width: "100%",
@@ -45,6 +65,10 @@ export const stylesObject = theme => ({
   },
   leaderLine: {
     width: "100%"
+  },
+  questionImage: {
+    width: "80%",
+    maxWidth: "15rem"
   },
   score: {
     float: "right"

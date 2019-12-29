@@ -31,7 +31,7 @@ class Timer extends React.Component {
 
   startTimer = () => {
     const newEndTime = moment()
-      .add(1, "hours")
+      .add(1, "years")
       .unix();
     this.props.toggleHuntActive(true);
 
@@ -91,24 +91,22 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <div>
-        <Card className={this.props.classes.card} raised>
-          <CardHeader title={this.getTimerValue()} />
+      <Card className={this.props.classes.card} raised>
+        <CardHeader title={this.getTimerValue()} />
 
-          {this.props.showButtons && !this.props.isHuntActive && (
-            <div className="row">
-              <Button
-                variant="contained"
-                color="primary"
-                className={"button button-primary button-primary-active"}
-                onClick={this.startTimer}
-              >
-                Start the game
-              </Button>
-            </div>
-          )}
-        </Card>
-      </div>
+        {this.props.showButtons && !this.props.isHuntActive && (
+          <div className="row">
+            <Button
+              variant="contained"
+              color="primary"
+              className={"button button-primary button-primary-active"}
+              onClick={this.startTimer}
+            >
+              Start the game
+            </Button>
+          </div>
+        )}
+      </Card>
     );
   }
 }

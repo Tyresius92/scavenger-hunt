@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "checkPrettier": "prettier --check \"src/**/*.js\"",
     "cover": "npm run test -- --coverage",
-    "lint": "node_modules/.bin/eslint --ext js,jsx ./src",
+    "lint": "node_modules/.bin/eslint --color --ext js,jsx ./src",
     "sniff": "npm run checkPrettier && npm run lint",
     "deploy": "react-scripts build && firebase deploy"
   },

@@ -38,6 +38,7 @@ const CreateTeam = props => {
               teamName,
               password,
               score: 0,
+              unlockedBlocks: ["americas", "misc"],
               correctAnswers: [] // still needed as shape is different in db
             };
 
@@ -46,7 +47,7 @@ const CreateTeam = props => {
             return numTeams;
           })
           .then(id => {
-            // store the team im logged in as in local state
+            // store the team i'm logged in as in local state
             props.updateTeamData({ teamName, id });
 
             /*
@@ -57,6 +58,17 @@ const CreateTeam = props => {
               id,
               correctAnswers => {
                 props.updateCorrectAnswers(correctAnswers || []);
+              }
+            );
+
+            /*
+             * default arg ["americas", "misc"] not needed since
+             * we set a default that firebase recognizes
+             */
+            props.firebase.getAutoUpdatingUnlockedBlocksArray(
+              id,
+              unlockedBlocks => {
+                props.updateUnlockedBlocks(unlockedBlocks);
               }
             );
 
@@ -147,7 +159,8 @@ const CreateTeam = props => {
 CreateTeam.propTypes = {
   firebase: PropTypes.object.isRequired,
   updateTeamData: PropTypes.func.isRequired,
-  updateCorrectAnswers: PropTypes.func.isRequired
+  updateCorrectAnswers: PropTypes.func.isRequired,
+  updateUnlockedBlocks: PropTypes.func.isRequired
 };
 
 export default withFirebase(CreateTeam);

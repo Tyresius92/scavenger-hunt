@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   Card,
+  Container,
   Divider,
   List,
   ListItem,
@@ -31,34 +32,36 @@ class LeaderBoard extends React.Component {
       <>
         {this.state.sortedTeamsList.length > 0 && (
           <Card className={this.props.classes.card} raised>
-            <List>
-              {this.state.sortedTeamsList.map((currTeam, index, array) => (
-                <React.Fragment key={`${currTeam.name}_${index}`}>
-                  <ListItem
-                    className={
-                      currTeam.teamName === this.props.loggedInTeam
-                        ? this.props.classes.myLeaderBoardLineItem
-                        : this.props.classes.leaderLine
-                    }
-                  >
-                    <Typography
-                      variant="h5"
+            <Container>
+              <List>
+                {this.state.sortedTeamsList.map((currTeam, index, array) => (
+                  <React.Fragment key={`${currTeam.name}_${index}`}>
+                    <ListItem
                       className={
                         currTeam.teamName === this.props.loggedInTeam
-                          ? this.props.classes.myLeaderBoardLineText
+                          ? this.props.classes.myLeaderBoardLineItem
                           : this.props.classes.leaderLine
                       }
                     >
-                      {currTeam.teamName}
-                      <span className={this.props.classes.score}>
-                        {currTeam.score} / {MAX_POINTS}
-                      </span>
-                    </Typography>
-                  </ListItem>
-                  {index + 1 !== array.length && <Divider />}
-                </React.Fragment>
-              ))}
-            </List>
+                      <Typography
+                        variant="h5"
+                        className={
+                          currTeam.teamName === this.props.loggedInTeam
+                            ? this.props.classes.myLeaderBoardLineText
+                            : this.props.classes.leaderLine
+                        }
+                      >
+                        {currTeam.teamName}
+                        <span className={this.props.classes.score}>
+                          {currTeam.score} / {MAX_POINTS}
+                        </span>
+                      </Typography>
+                    </ListItem>
+                    {index + 1 !== array.length && <Divider />}
+                  </React.Fragment>
+                ))}
+              </List>
+            </Container>
           </Card>
         )}
       </>
