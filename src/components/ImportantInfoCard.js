@@ -17,7 +17,7 @@ const ImportantInfoCard = () => {
           Every third correct answer will unlock another question block.
         </ListItem>
         <ListItem>
-          Type in "hint" to get a hint for a particular question.
+          Type in &ldquo;hint&rdquo; to get a hint for a particular question.
         </ListItem>
         <ListItem>
           Refreshing the page will log you out. Please log in again to resume
