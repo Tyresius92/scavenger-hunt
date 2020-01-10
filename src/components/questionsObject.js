@@ -74,27 +74,31 @@ export const questions = {
         question:
           'What sacred art form does Lalla Essaydi make use of in her photograph in the "Women Take the Floor" exhibit?',
         answer: "calligraphy",
-        points: 1
+        points: 1,
+        hint: "Art Form-ception!"
       },
       {
         id: "womenTakeTheFloor_2",
         question:
           "What household tool is CeCe McDonald carrying in her 2016 portrait by Andrea Bowers?",
         answer: "hammer",
-        points: 5
+        points: 5,
+        hint: "Peter, Paul, and Mary would use it in the morning"
       },
       {
         id: "womenTakeTheFloor_3",
         question:
           'What color shirt is the rear sister wearing in Frida Kahlo\'s "Dos Mujeres"?',
         answer: "yellow",
-        points: 3
+        points: 3,
+        hint: "No hints about Frida Kahlo"
       },
       {
         id: "womenTakeTheFloor_4",
         question: 'What word is at the top of Lorna Simpson\'s work "She"?',
         answer: "female",
-        points: 2
+        points: 2,
+        hint: "You're looking for a piece with 4 suits"
       }
     ]
   },
@@ -140,6 +144,7 @@ export const questions = {
       {
         id: "findThatBooty_1",
         image: manAtBath,
+        alt: "a cropped painting of a butt",
         question:
           "The owner of this booty is drying his back while facing away from the painter. What do you see at the foot of the chair?",
         answer: "boots",
@@ -150,6 +155,7 @@ export const questions = {
       {
         id: "findThatBooty_2",
         image: paxtonNude,
+        alt: "a cropped painting of a woman's butt",
         question:
           "What name is written in the upper right corner of this booty's painting?",
         answer: "paxton",
@@ -159,6 +165,7 @@ export const questions = {
       {
         id: "findThatBooty_3",
         image: modernMagdalen,
+        alt: "a cropped painting of a woman's butt",
         question:
           "The title of this work compares the owner of this booty to a famous biblical figure. What word in the title creates this connection?",
         answer: "magdalen",
@@ -168,6 +175,8 @@ export const questions = {
       {
         id: "findThatBooty_4",
         image: recliningNude,
+        alt:
+          "a cropped painting of a person's butt, done in the expressionist style",
         question:
           "The owner of this booty was posing for a German Expressionist artist who was a member of The Bridge (Die Brücke). What city was he based in?",
         answer: "dresden",
@@ -178,6 +187,7 @@ export const questions = {
       {
         id: "findThatBooty_5",
         image: twoNudeLovers,
+        alt: "a cropped painting of a highly abstract butt",
         question:
           "The owner of this booty had an affair with the widow (also depicted) of what famous composer? (Composer's last name only)",
         answer: "mahler",
@@ -187,6 +197,7 @@ export const questions = {
       {
         id: "findThatBooty_6",
         image: threeGraces,
+        alt: "a cropped picture of the butt on a sculpture",
         question:
           "This gilded bronze statue has only one visible booty, although three nude figures are depicted. What is the last name of the sculptor?",
         answer: "petel",
@@ -203,21 +214,24 @@ export const questions = {
         question:
           "What is the third crossed out word in the MFA Contemporary Art neon sign?",
         answer: "eat",
-        points: 1
+        points: 1,
+        hint:
+          "Ironically, the piece is not far from where you may do the very thing it suggests you DON'T do..."
       },
       {
         id: "contemporaryArt_2",
         question:
           "Which artist uses styrofoam cups to engage with the architecture of the MFA? (Last name only)",
         answer: "donovan",
-        points: 2
+        points: 2,
+        hint: "I suggest looking up from your phone to find this piece..."
       },
       {
         id: "contemporaryArt_3",
         question:
           "What is the title of the painting created by an artist whose surname sounds similar to the monster who lives in the Chamber of Secrets?",
         answer: "lazarus",
-        points: 3,
+        points: 5,
         hint: "The monster is a basilisk, and the gallery is 261"
       },
       {
@@ -225,7 +239,7 @@ export const questions = {
         question:
           "What bird is suggested in the minimalist sculpture whose name evokes a barren, frozen landscape?",
         answer: "falcon",
-        points: 4,
+        points: 3,
         hint: "Gallery 260"
       }
     ]
