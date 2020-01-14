@@ -9,10 +9,19 @@ import {
   Typography,
   withStyles
 } from "@material-ui/core";
+import { questions } from "./questionsObject";
 import { withFirebase } from "./firebase";
 import { stylesObject } from "./useStyles";
 
-const MAX_POINTS = 100;
+const MAX_POINTS = Object.keys(questions).reduce(
+  (acc, key) =>
+    acc +
+    questions[key].questions.reduce(
+      (pointsInBlock, question) => pointsInBlock + question.points,
+      0
+    ),
+  0
+);
 
 class LeaderBoard extends React.Component {
   state = {
