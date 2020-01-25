@@ -10,9 +10,16 @@ const getLockedBlocks = (allBlocks, unlockedBlocks) =>
 const UnlockBlockDialog = props => {
   const classes = useStyles();
 
+  const lockedBlocks = Object.keys(questions).filter(
+    element => !props.unlockedBlocks.includes(element)
+  );
+
   return (
     <Dialog
-      open={props.numCorrectAnswers / 3 === props.unlockedBlocks.length - 1}
+      open={
+        lockedBlocks.length > 0 &&
+        props.numCorrectAnswers / 3 === props.unlockedBlocks.length - 1
+      }
       disableEscapeKeyDown
       disableBackdropClick
     >
@@ -20,29 +27,27 @@ const UnlockBlockDialog = props => {
         <Typography className={classes.dialogTitle} variant="h5">
           Select a question block to unlock
         </Typography>
-        {getLockedBlocks(Object.keys(questions), props.unlockedBlocks).map(
-          blockName => {
-            const blockTitle = questions[blockName].blockTitle;
-            const pointsInBlock = questions[blockName].questions.reduce(
-              (acc, question) => acc + question.points,
-              0
-            );
-            const blockQuestionCount = questions[blockName].questions.length;
+        {lockedBlocks.map(blockName => {
+          const blockTitle = questions[blockName].blockTitle;
+          const pointsInBlock = questions[blockName].questions.reduce(
+            (acc, question) => acc + question.points,
+            0
+          );
+          const blockQuestionCount = questions[blockName].questions.length;
 
-            return (
-              <Button
-                key={blockName}
-                className={classes.dialogButton}
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={() => props.onUnlockNewBlockClick(blockName)}
-              >
-                {blockTitle} ({blockQuestionCount} Qs; {pointsInBlock} pts)
-              </Button>
-            );
-          }
-        )}
+          return (
+            <Button
+              key={blockName}
+              className={classes.dialogButton}
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => props.onUnlockNewBlockClick(blockName)}
+            >
+              {blockTitle} ({blockQuestionCount} Qs; {pointsInBlock} pts)
+            </Button>
+          );
+        })}
       </Card>
     </Dialog>
   );
